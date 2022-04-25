@@ -1,0 +1,18 @@
+header {
+    color: white;
+    background-image: linear-gradient(to right, rgb(238, 222, 78) , rgb(229, 79, 9));
+    text-align: center;
+    height: 15vh;
+}
+
+header h1 {
+    padding: 1% 0%;
+}
+
+.teamCard {
+    margin-top: 3%;
+}
+
+.background {
+    background-color: rgb(243, 138, 39);
+}
