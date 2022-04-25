@@ -1,9 +1,9 @@
 
-const renderList = (list) => {
-    return list.items
-      .map((item) => `<li class="list-group-item">${item.toString()}</li>`)
-      .join("");
-  };
+// const renderList = (list) => {
+//     return list.items
+//       .map((item) => `<li class="list-group-item">${item.toString()}</li>`)
+//       .join("");
+//   };
 
 // function 1 for adding Manager
 const renderManager = (Manager) => {
@@ -69,7 +69,7 @@ const memberCard = (memberType) => {
      }
 };
 
-const addCard = [];
+let addCard = [];
 addCard = addCard.push(memberCard);
 
 const addMember = (member) => {
