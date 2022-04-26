@@ -1,15 +1,16 @@
-const { timeStamp } = require("console");
 const figlet = require("figlet");
 const fs = require("fs").promises;
 const inquirer = require("inquirer");
+const Employee = require("./lib/Employee");
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
 const Manager = require('./lib/Manager');
-// const generateHtml = require('./src/generateHtml');
+const Team = require('./lib/Team');
+const generateHtml = require('./src/generateHtml');
 
-class Team {
+class CLI {
     constructor() {
-        this.list = null;
+        this.team = null;
     }
 
     start() {
@@ -30,15 +31,18 @@ class Team {
             console.log("Welcome to Team Profile Generator");
         })
         .then(() => {
+            this.team = new Team ();
             // return to chain any errors to the last .catch below
             this.addManager();
         })
         .catch((err) => this.handleError(err));
     }
+
     handleError(err) {
         console.log(err);
         console.log("Something went wrong. Scroll up to see details.");
     }
+
     addManager() {
         return inquirer.prompt([
             {
@@ -59,12 +63,15 @@ class Team {
             {
             type: "input",
             message: "What is the team manager's office number?",
-            name: "managerOfficenNumber",
+            name: "managerOfficeNumber",
             }
         ]).then((data) => {
+            this.team.addManager(data.managerName, data.managerId, data.managerEmail, data.managerOfficeNumber);
+
             this.addMember();
         })
     }
+
     // function to prompt questions for engineer
     generateEngineer(){
         return inquirer.prompt([
@@ -89,9 +96,12 @@ class Team {
             name: "engineerGithub",
             }
         ]).then((data) => {            
+            this.team.addEngineer(data.engineerName, data.engineerId, data.engineerEmail, data.engineerGithub);
+
             this.addMember();
         })
     }
+
     // function to prompt questions for intern
     generateIntern() {
         return inquirer.prompt([
@@ -116,9 +126,12 @@ class Team {
             name: "internSchool",
             }
         ]).then((data) => {
+            this.team.addIntern(data.internName, data.internId, data.internEmail, data.internSchool);
+            
             this.addMember();
         })
     }
+
     addMember() {
         return inquirer.prompt([
             {
@@ -130,62 +143,30 @@ class Team {
                     'I have finished adding team members',],
             },
         ]).then((data) => {
-            let option = data.memberType
+            let option = data.memberType;
 
             if (option === "Engineer") {
                 this.generateEngineer();
             } else if (option === "Intern") {
                 this.generateIntern();
+            } else {
+                // done adding team member, time to generate the html
+                return this.writeHtml();
             }
 
-            // return writeHtml();
-
         })
+        .catch((err) => this.handleError(err));
+    }
+    
+    writeHtml() {
+        console.log(this.team);
 
-
-    function writeHtml() {
-        const htmlPageContent = generateHtml();
+        const htmlPageContent = generateHtml(this.team.Employees);
 
         fs.writeFile("dist/team.html", htmlPageContent, (err) =>
         err ? console.log(err) : console.log("Created team.html file. You'll find it in the 'dist' folder.")
-        
-        );
-    }
-
-
-       
-
-
-        // ask Manager questions
-
-        // var selectedOption // change name later
-
-        // while (selectedOption != 'I have finished...') {
-        //         // ? Which type of team member would you like to add?
-        //         selectedOption = // selecte answer
-                
-        //         if (selectedOption = 'Engineer') {
-        //             // ? What is your engineer's name? gui
-        //             // ? What is your engineer's ID? 2
-        //             // ? What is your engineer's email? gui@gmai
-        //             // ? What is your engineer's GitHub username? guiguizi
-        //         } else if (selectedIotioin = 'Intern') {
-        //             // ? What is your intern's name? a
-        //             // ? What is your intern's ID? b
-        //             // ? What is your intern's email? c
-        //             // ? What is your intern's school? d
-        //         } else {
-        //           selectedOption = 'I have finished...' 
-        //         }
-
-        // }
-
-       
+        );   
     }
 }
 
-
-
-
-new Team().start();
-
+new CLI().start();

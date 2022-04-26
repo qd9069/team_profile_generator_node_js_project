@@ -1,87 +1,100 @@
-
-// const renderList = (list) => {
-//     return list.items
-//       .map((item) => `<li class="list-group-item">${item.toString()}</li>`)
-//       .join("");
-//   };
-
 // function 1 for adding Manager
-const renderManager = (Manager) => {
-    return `<div class="col my-4">
-                <div class="card h-100 border-warning" style="width: 100%;">
-                    <div class="card-header background text-white">
-                        <h3>${Manager.name}</h3>
-                        <p>${Manager.getRole()}</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">${Manager.id}</li>
-                        <li class="list-group-item"><a href="mailto:${Manager.email}">Email: ${Manager.email}</a></li>
-                        <li class="list-group-item">${Manager.officeNumber}</li>
-                    </ul>
-                </div>
-            </div>`  
-    
+const renderManager = (Employees) => {
+    // create for loop to check each element in the Employees array
+    // if role === "Manager", return card
+    // if role != "Manager", then stop this function
+
+    for (let i = 0; i < Employees.length; i++) {
+        if (Employees[i].getRole() === "Manager") {
+            return `<div class="col my-4">
+                        <div class="card h-100 border-warning" style="width: 100%;">
+                            <div class="card-header background text-white">
+                                <h3>${Employees[i].name}</h3>
+                                <p>${Employees[i].getRole()}</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">${Employees[i].id}</li>
+                                <li class="list-group-item"><a href="mailto:${Employees[i].email}">Email: ${Employees[i].email}</a></li>
+                                <li class="list-group-item">${Employees[i].officeNumber}</li>
+                            </ul>
+                        </div>
+                    </div>`  
+        }
+    }
 };
 
 // function 2 for adding Engineer
-const renderEngineer = (Engineer) => {
-    return `<div class="col my-4">
-                <div class="card h-100 border-warning" style="width: 100%;">
-                    <div class="card-header background text-white">
-                        <h3>${Engineer.name}</h3>
-                        <p>${Engineer.getRole()}</p>
+const renderEngineer = (Employees) => {
+    // create a cards array for engineer
+    let cards = [];
+
+    // create for loop to check each element in the Employees array
+    // if role === "Engineer", 
+        //push to the cards array 
+    // if role != "Engineer", then stop this function
+    
+    for (let i = 0; i < Employees.length; i++) {
+        if (Employees[i].getRole() === "Engineer") {
+            cards.push(
+                `<div class="col my-4">
+                    <div class="card h-100 border-warning" style="width: 100%;">
+                        <div class="card-header background text-white">
+                            <h3>${Employees[i].name}</h3>
+                            <p>${Employees[i].getRole()}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">${Employees[i].id}</li>
+                            <li class="list-group-item"><a href="mailto:${Employees[i].email}">Email: ${Employees[i].email}</a></li>
+                            <li class="list-group-item"><a href="https://github.com/${Employees[i].github}">GitHub: ${Employees[i].github}</a></li>
+                        </ul>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">${Engineer.id}</li>
-                        <li class="list-group-item"><a href="mailto:${Engineer.email}">Email: ${Engineer.email}</a></li>
-                        <li class="list-group-item"><a href="https://github.com/${Engineer.github}">GitHub: ${Engineer.github}</a></li>
-                    </ul>
-                </div>
-            </div>`
+                </div>`
+            );
+        }
+    }
+    
+    //return cards array as string with .join("")
+    return cards.join("");
 };
 
 // function 3 for adding Intern
-const renderIntern = (Intern) => {
-    return  `<div class="col my-4">
-                <div class="card h-100 border-warning" style="width: 100%;">
-                    <div class="card-header background text-white">
-                        <h3>${Intern.name}</h3>
-                        <p>${Intern.getRole()}</p>
+const renderIntern = (Employees) => {
+    // create a cards array for engineer
+    let cards = [];
+
+    // create for loop to check each element in the Employees array
+    // if role === "Intern", 
+        //push to the cards array 
+    // if role != "Intern", then stop this function
+
+    for (let i = 0; i < Employees.length; i++) {
+        if (Employees[i].getRole() === "Intern") {
+            cards.push(
+                `<div class="col my-4">
+                    <div class="card h-100 border-warning" style="width: 100%;">
+                        <div class="card-header background text-white">
+                            <h3>${Employees[i].name}</h3>
+                            <p>${Employees[i].getRole()}</p>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">${Employees[i].id}</li>
+                            <li class="list-group-item"><a href="mailto:${Employees[i].email}">Email: ${Employees[i].email}</a></li>
+                            <li class="list-group-item">School: ${Employees[i].school}</li>
+                        </ul>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">${Intern.id}</li>
-                        <li class="list-group-item"><a href="mailto:${Intern.email}">Email: ${Intern.email}</a></li>
-                        <li class="list-group-item">School: ${Intern.school}</li>
-                    </ul>
-                </div>
-            </div>`
-};
+                </div>`
+            );
+        }
+    }
 
-// function 4 to add cards depending on role
-
-const memberCard = (memberType) => {
-    if(memberType === "Engineer") {
-        return renderEngineer();
-     } else if (memberType === "Intern") {
-         return renderIntern();
-     } else {
-         return;
-     }
-};
-
-let addCard = [];
-addCard = addCard.push(memberCard);
-
-const addMember = (member) => {
-    return addCard.map((member) => {
-        addCard.push(memberCard);
-    }).join("");
+    //return cards array as string with .join("")
+    return cards.join("");
+    
 };
 
 
-const generateHtml = () => {
-    return 
-    `<!DOCTYPE html>
+const generateHtml = (Employees) => {
+    return `<!DOCTYPE html>
     <html lang="en">
         <head>
             <meta charset="UTF-8">
@@ -105,20 +118,22 @@ const generateHtml = () => {
                     <!-- add team member card - depends on how many team members the team has and role of the team member-->
 
                     <!-- for Manager -->
-                    ${renderManager(Manager)}
+                    ${renderManager(Employees)}
 
-                    <!-- for Engineer and Intern -->
-                    ${addMember()}
-    
-                    
+                    <!-- for Engineer -->
+                    ${renderEngineer(Employees)}
+
+                    <!-- for Intern -->
+                    ${renderIntern(Employees)}
+
                     
                 </div>
             </div>
     
         </body>
     </html>
-
     `;
 };
 
 module.exports = generateHtml;
+
