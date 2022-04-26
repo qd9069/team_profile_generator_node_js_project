@@ -13,9 +13,9 @@ const renderManager = (Employees) => {
                                 <p>${Employees[i].getRole()}</p>
                             </div>
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">${Employees[i].id}</li>
-                                <li class="list-group-item"><a href="mailto:${Employees[i].email}">Email: ${Employees[i].email}</a></li>
-                                <li class="list-group-item">${Employees[i].officeNumber}</li>
+                                <li class="list-group-item">ID: ${Employees[i].id}</li>
+                                <li class="list-group-item">Email: <a href="mailto:${Employees[i].email}">${Employees[i].email}</a></li>
+                                <li class="list-group-item">Office number: ${Employees[i].officeNumber}</li>
                             </ul>
                         </div>
                     </div>`  
@@ -43,9 +43,9 @@ const renderEngineer = (Employees) => {
                             <p>${Employees[i].getRole()}</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">${Employees[i].id}</li>
-                            <li class="list-group-item"><a href="mailto:${Employees[i].email}">Email: ${Employees[i].email}</a></li>
-                            <li class="list-group-item"><a href="https://github.com/${Employees[i].github}">GitHub: ${Employees[i].github}</a></li>
+                            <li class="list-group-item">ID: ${Employees[i].id}</li>
+                            <li class="list-group-item">Email: <a href="mailto:${Employees[i].email}">${Employees[i].email}</a></li>
+                            <li class="list-group-item">GitHub: <a href="https://github.com/${Employees[i].github}">${Employees[i].github}</a></li>
                         </ul>
                     </div>
                 </div>`
@@ -77,8 +77,8 @@ const renderIntern = (Employees) => {
                             <p>${Employees[i].getRole()}</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">${Employees[i].id}</li>
-                            <li class="list-group-item"><a href="mailto:${Employees[i].email}">Email: ${Employees[i].email}</a></li>
+                            <li class="list-group-item">ID: ${Employees[i].id}</li>
+                            <li class="list-group-item">Email: <a href="mailto:${Employees[i].email}">${Employees[i].email}</a></li>
                             <li class="list-group-item">School: ${Employees[i].school}</li>
                         </ul>
                     </div>

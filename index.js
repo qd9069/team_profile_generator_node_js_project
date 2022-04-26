@@ -159,7 +159,7 @@ class CLI {
     }
     
     writeHtml() {
-        console.log(this.team);
+        // console.log(this.team);
 
         const htmlPageContent = generateHtml(this.team.Employees);
 
